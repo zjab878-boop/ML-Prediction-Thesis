@@ -1,0 +1,643 @@
+
+R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[R.app GUI 1.82 (8556) aarch64-apple-darwin20]
+
+[History restored from /Users/zizfonjabbar/.Rapp.history]
+
+> library(QCA)
+Loading required package: admisc
+
+To cite package QCA in publications, please use:
+  Dusa, Adrian (2019) QCA with R. A Comprehensive Resource.
+  Springer International Publishing.
+
+To run the graphical user interface, use: runGUI()
+
+
+> 
+> dat <- read.csv("PPP_QCA_FINAL_FUZZY.csv")
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'PPP_QCA_FINAL_FUZZY.csv': No such file or directory
+> 
+> # quick check
+> dim(dat)
+Error: object 'dat' not found
+> names(dat)[1:5]
+Error: object 'dat' not found
+> tail(names(dat), 5)
+Error: object 'dat' not found
+> 
+> dat <- read.csv("PPP_QCA_FINAL_FUZZY.csv")
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'PPP_QCA_FINAL_FUZZY.csv': No such file or directory
+> 
+> getwd()
+[1] "/Users/zizfonjabbar"
+> list.files()
+ [1] "anaconda_projects"         "Applications"             
+ [3] "Databases1.cvs"            "Desktop"                  
+ [5] "Documents"                 "Downloads"                
+ [7] "Library"                   "Machine Learning "        
+ [9] "Movies"                    "Music"                    
+[11] "OneDrive - AUT University" "Output"                   
+[13] "Pictures"                  "ppp.py"                   
+[15] "pppdatabases.ipynb"        "ppptest1.py"              
+[17] "Public"                    "solution_intermediate.rds"
+[19] "solution_parsimonious.rds" "Untitled.ipynb"           
+[21] "untitled.py"               "Zotero"                   
+> 
+> file_path <- file.choose()
+> file_path
+[1] "/Users/zizfonjabbar/Desktop/PPP_QCA_FINAL_FUZZY.numbers"
+> dat <- read.csv(file_path)
+Warning messages:
+1: In read.table(file = file, header = header, sep = sep, quote = quote,  :
+  line 1 appears to contain embedded nulls
+2: In read.table(file = file, header = header, sep = sep, quote = quote,  :
+  line 2 appears to contain embedded nulls
+3: In read.table(file = file, header = header, sep = sep, quote = quote,  :
+  line 3 appears to contain embedded nulls
+4: In read.table(file = file, header = header, sep = sep, quote = quote,  :
+  line 4 appears to contain embedded nulls
+5: In read.table(file = file, header = header, sep = sep, quote = quote,  :
+  line 5 appears to contain embedded nulls
+6: In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
+  EOF within quoted string
+7: In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
+  embedded nul(s) found in input
+> 
+> dim(dat)
+[1] 1599    1
+> names(dat)[1:5]
+[1] "PK..." NA      NA      NA      NA     
+> tail(names(dat), 5)
+[1] "PK..."
+> 
+> setwd("/Users/zizfonjabbar/Machine Learning ")
+> list.files()
+ [1] "DATABASE2.csv"                  "Databases1.csv"                
+ [3] "PPP_QCA_FINAL_FUZZY.csv"        "PPP_QCA_FUZZY_ALLVariables.csv"
+ [5] "PPP_QCA_FUZZY_ALLVariables.cvs" "QCA_final_data.csv.cvs"        
+ [7] "QCADATA.ipynb"                  "Test1.ipynb"                   
+ [9] "Untitled Folder"                "Untitled.ipynb"                
+[11] "untitled.py"                    "Untitled1.ipynb"               
+[13] "Untitled2.ipynb"                "ZizfonJdatabase.csv"           
+> 
+> dat <- read.csv("PPP_QCA_FINAL_FUZZY.csv")
+> 
+> 
+> 
+> 
+> 
+> library(QCA)
+> 
+> outcome <- "Y"
+> conds <- names(dat)[grepl("^f_", names(dat))]
+> 
+> tt <- truthTable(
++   dat,
++   outcome = outcome,
++   conditions = conds,
++   incl.cut = 0.80,
++   n.cut = 2,
++   show.cases = TRUE
++ )
+
+Error: Impossible to run a QCA analysis with so many conditions.
+
+> 
+> print(tt)
+Error: object 'tt' not found
+> 
+> sol <- minimize(
++   tt,
++   include = "?",
++   details = TRUE,
++   show.cases = TRUE
++ )
+Error: object 'tt' not found
+> 
+> print(sol)
+Error: object 'sol' not found
+> 
+> conds_fin <- c(
++   "f_Financial_capacity",
++   "f_Project_Financing",
++   "f_Financial_Viability",
++   "f_RevenueModel_type",
++   "f_Cost",
++   "f_Lifecycle_cost"
++ )
+> 
+> conds_gov <- c(
++   "f_Governance",
++   "f_Regulority_Qualityassess",
++   "f_ControlofCorruption",
++   "f_Contract_compliance",
++   "f_Contrcatural_Duties",
++   "f_Renegotiation",
++   "f_Political_Risk"
++ )
+> 
+> conds_perf <- c(
++   "f_Service_Quality",
++   "f_Quality",
++   "f_Time",
++   "f_Cost_efficiency",
++   "f_Smart_Innovation",
++   "f_BiddingTeam"
++ )
+> 
+> conds_sus <- c(
++   "f_Sustainability",
++   "f_Environmental_Impact",
++   "f_Macro_Enviromentimpact",
++   "f_Partnership_collaboration",
++   "f_StakeholderSatisfaction",
++   "f_Risk_allocation"
++ )
+> 
+> outcome <- "Y"
+> 
+> conds_fin <- c(
++   "f_Financial_capacity",
++   "f_Project_Financing",
++   "f_Financial_Viability",
++   "f_RevenueModel_type",
++   "f_Cost",
++   "f_Lifecycle_cost"
++ )
+> 
+> tt_fin <- truthTable(
++   dat,
++   outcome = outcome,
++   conditions = conds_fin,
++   incl.cut = 0.80,
++   n.cut = 2,
++   show.cases = TRUE
++ )
+
+Error: There are no configurations, using these cutoff values.
+
+In addition: Warning message:
+In truthTable(dat, outcome = outcome, conditions = conds_fin, incl.cut = 0.8,  :
+  
+Fuzzy causal conditions should not have values of 0.5 in the data.
+
+
+> 
+> print(tt_fin)
+Error: object 'tt_fin' not found
+> 
+> sol_fin <- minimize(
++   tt_fin,
++   include = "?",
++   details = TRUE,
++   show.cases = TRUE
++ )
+Error: object 'tt_fin' not found
+> 
+> print(sol_fin)
+Error: object 'sol_fin' not found
+> 
+> # replace exact 0.5 with 0.5001 (tiny shift)
+> dat2 <- dat
+> fcols <- names(dat2)[grepl("^f_", names(dat2))]
+> 
+> dat2[fcols] <- lapply(dat2[fcols], function(x) {
++   x <- as.numeric(x)
++   x[x == 0.5] <- 0.5001
++   x
++ })
+> 
+> # also do it for outcome, just in case
+> dat2$Y[dat2$Y == 0.5] <- 0.5001
+> 
+> library(QCA)
+> 
+> outcome <- "Y"
+> 
+> conds_fin <- c(
++   "f_Financial_capacity",
++   "f_Project_Financing",
++   "f_Financial_Viability",
++   "f_RevenueModel_type",
++   "f_Cost",
++   "f_Lifecycle_cost"
++ )
+> 
+> tt_fin <- truthTable(
++   dat2,
++   outcome = outcome,
++   conditions = conds_fin,
++   incl.cut = 0.75,
++   n.cut = 1,
++   show.cases = TRUE
++ )
+> 
+> print(tt_fin)
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+     f_Financial_capacity f_Project_Financing f_Financial_Viability
+ 8            0                    0                    0          
+12            0                    0                    1          
+16            0                    0                    1          
+24            0                    1                    0          
+28            0                    1                    1          
+32            0                    1                    1          
+40            1                    0                    0          
+52            1                    1                    0          
+56            1                    1                    0          
+60            1                    1                    1          
+64            1                    1                    1          
+     f_RevenueModel_type f_Cost f_Lifecycle_cost   OUT    n    incl  PRI  
+ 8            1            1           1            0     3    0.734 0.000
+12            0            1           1            1     1    0.757 0.000
+16            1            1           1            0     4    0.748 0.000
+24            1            1           1            0     22   0.735 0.000
+28            0            1           1            1     1    0.756 0.000
+32            1            1           1            0     49   0.747 0.000
+40            1            1           1            1     1    0.777 0.000
+52            0            1           1            1     1    0.782 0.000
+56            1            1           1            1     19   0.776 0.000
+60            0            1           1            1     7    0.784 0.000
+64            1            1           1            1     129  0.780 0.001
+     cases                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+ 8   9,91,183                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+12   8                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+16   29,39,40,44                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+24   14,15,18,46,74,75,82,85,87,88,96,113,118,126,127,133,142,144,145,182,199,201                                                                                                                                                                                                                                                                                                                                                                                          
+28   36                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+32   27,31,42,43,45,51,94,112,116,119,122,123,128,130,134,135,136,140,150,151,156,163,165,169,170,179,180,185,187,188,189,191,194,202,203,206,207,209,210,211,212,219,223,226,227,231,234,236,237                                                                                                                                                                                                                                                                          
+40   41                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+52   64                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+56   1,19,20,21,25,26,73,92,95,100,101,102,105,115,121,125,197,221,229                                                                                                                                                                                                                                                                                                                                                                                                     
+60   10,22,23,33,66,78,81                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+64   2,3,4,5,6,7,11,12,13,16,17,24,28,30,32,34,35,37,38,47,48,49,50,52,53,54,55,56,57,58,59,60,61,62,63,65,67,68,69,70,71,72,76,77,79,80,83,84,86,89,90,93,97,98,99,103,104,106,107,108,109,110,111,114,117,120,124,129,131,132,137,138,139,141,143,146,147,148,149,152,153,154,155,157,158,159,160,161,162,164,166,167,168,171,172,173,174,175,176,177,178,181,184,186,190,192,193,195,196,198,200,204,205,208,213,214,215,216,217,218,220,222,224,225,228,230,232,233,235
+
+> 
+> sol_fin <- minimize(
++   tt_fin,
++   include = "?",
++   details = TRUE,
++   show.cases = TRUE
++ )
+> 
+> print(sol_fin)
+
+M1: f_Financial_capacity + ~f_RevenueModel_type -> Y
+
+                         inclS   PRI   covS   covU  
+--------------------------------------------------- 
+1  f_Financial_capacity  0.771  0.001  0.849  0.158 
+2  ~f_RevenueModel_type  0.720  0.000  0.824  0.133 
+--------------------------------------------------- 
+                     M1  0.720  0.001  0.982 
+
+                         cases 
+------------------------------ 
+1  f_Financial_capacity  41; 64; 1,19,20,21,25,26,73,92,95,100,101,102,105,115,121,125,197,221,229;
+                         10,22,23,33,66,78,81; 2,3,4,5,6,7,11,12,13,16,17,24,28,30,32,34,35,37,38,47,48,49,50,52,53,54,55,56,57,58,59,60,61,62,63,65,67,68,69,70,71,72,76,77,79,80,83,84,86,89,90,93,97,98,99,103,104,106,107,108,109,110,111,114,117,120,124,129,131,132,137,138,139,141,143,146,147,148,149,152,153,154,155,157,158,159,160,161,162,164,166,167,168,171,172,173,174,175,176,177,178,181,184,186,190,192,193,195,196,198,200,204,205,208,213,214,215,216,217,218,220,222,224,225,228,230,232,233,235
+2  ~f_RevenueModel_type  8; 36; 64; 10,22,23,33,66,78,81
+------------------------------ 
+
+> 
+> summary(dat$Y)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  0.5000  0.3671  0.5000  0.5000 
+> quantile(dat$Y, probs = c(0, .1, .25, .5, .75, .9, 1), na.rm = TRUE)
+  0%  10%  25%  50%  75%  90% 100% 
+ 0.0  0.0  0.0  0.5  0.5  0.5  0.5 
+> 
+> dat <- read.csv("PPP_QCA_FINAL_FUZZY_STRICT.csv")
+> 
+> outcome <- "Y_strict"
+> 
+> dat <- read.csv("PPP_QCA_FINAL_FUZZY_STRICT.csv")
+> 
+> outcome <- "Y_strict"
+> 
+> library(QCA)
+> 
+> outcome <- "Y"
+> 
+> conds_fin <- c(
++   "f_Financial_capacity",
++   "f_Project_Financing",
++   "f_Financial_Viability",
++   "f_RevenueModel_type",
++   "f_Cost",
++   "f_Lifecycle_cost"
++ )
+> 
+> tt_fin <- truthTable(
++   dat2,
++   outcome = outcome,
++   conditions = conds_fin,
++   incl.cut = 0.75,
++   n.cut = 1,
++   show.cases = TRUE
++ )
+> 
+> print(tt_fin)
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+     f_Financial_capacity f_Project_Financing f_Financial_Viability f_RevenueModel_type
+ 8            0                    0                    0                    1         
+12            0                    0                    1                    0         
+16            0                    0                    1                    1         
+24            0                    1                    0                    1         
+28            0                    1                    1                    0         
+32            0                    1                    1                    1         
+40            1                    0                    0                    1         
+52            1                    1                    0                    0         
+56            1                    1                    0                    1         
+60            1                    1                    1                    0         
+64            1                    1                    1                    1         
+     f_Cost f_Lifecycle_cost   OUT    n    incl  PRI  
+ 8     1           1            0     3    0.734 0.000
+12     1           1            1     1    0.757 0.000
+16     1           1            0     4    0.748 0.000
+24     1           1            0     22   0.735 0.000
+28     1           1            1     1    0.756 0.000
+32     1           1            0     49   0.747 0.000
+40     1           1            1     1    0.777 0.000
+52     1           1            1     1    0.782 0.000
+56     1           1            1     19   0.776 0.000
+60     1           1            1     7    0.784 0.000
+64     1           1            1     129  0.780 0.001
+     cases                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+ 8   9,91,183                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+12   8                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+16   29,39,40,44                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+24   14,15,18,46,74,75,82,85,87,88,96,113,118,126,127,133,142,144,145,182,199,201                                                                                                                                                                                                                                                                                                                                                                                          
+28   36                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+32   27,31,42,43,45,51,94,112,116,119,122,123,128,130,134,135,136,140,150,151,156,163,165,169,170,179,180,185,187,188,189,191,194,202,203,206,207,209,210,211,212,219,223,226,227,231,234,236,237                                                                                                                                                                                                                                                                          
+40   41                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+52   64                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+56   1,19,20,21,25,26,73,92,95,100,101,102,105,115,121,125,197,221,229                                                                                                                                                                                                                                                                                                                                                                                                     
+60   10,22,23,33,66,78,81                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+64   2,3,4,5,6,7,11,12,13,16,17,24,28,30,32,34,35,37,38,47,48,49,50,52,53,54,55,56,57,58,59,60,61,62,63,65,67,68,69,70,71,72,76,77,79,80,83,84,86,89,90,93,97,98,99,103,104,106,107,108,109,110,111,114,117,120,124,129,131,132,137,138,139,141,143,146,147,148,149,152,153,154,155,157,158,159,160,161,162,164,166,167,168,171,172,173,174,175,176,177,178,181,184,186,190,192,193,195,196,198,200,204,205,208,213,214,215,216,217,218,220,222,224,225,228,230,232,233,235
+
+> 
+> sol_fin <- minimize(
++   tt_fin,
++   include = "?",
++   details = TRUE,
++   show.cases = TRUE
++ )
+> 
+> print(sol_fin)
+
+M1: f_Financial_capacity + ~f_RevenueModel_type -> Y
+
+                         inclS   PRI   covS   covU  
+--------------------------------------------------- 
+1  f_Financial_capacity  0.771  0.001  0.849  0.158 
+2  ~f_RevenueModel_type  0.720  0.000  0.824  0.133 
+--------------------------------------------------- 
+                     M1  0.720  0.001  0.982 
+
+                         cases 
+------------------------------ 
+1  f_Financial_capacity  41; 64; 1,19,20,21,25,26,73,92,95,100,101,102,105,115,121,125,197,221,229;
+                         10,22,23,33,66,78,81; 2,3,4,5,6,7,11,12,13,16,17,24,28,30,32,34,35,37,38,47,48,49,50,52,53,54,55,56,57,58,59,60,61,62,63,65,67,68,69,70,71,72,76,77,79,80,83,84,86,89,90,93,97,98,99,103,104,106,107,108,109,110,111,114,117,120,124,129,131,132,137,138,139,141,143,146,147,148,149,152,153,154,155,157,158,159,160,161,162,164,166,167,168,171,172,173,174,175,176,177,178,181,184,186,190,192,193,195,196,198,200,204,205,208,213,214,215,216,217,218,220,222,224,225,228,230,232,233,235
+2  ~f_RevenueModel_type  8; 36; 64; 10,22,23,33,66,78,81
+------------------------------ 
+
+> 
+> summary(dat$Y)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  0.5000  0.3671  0.5000  0.5000 
+> quantile(dat$Y, probs = c(0, .1, .25, .5, .75, .9, 1), na.rm = TRUE)
+  0%  10%  25%  50%  75%  90% 100% 
+ 0.0  0.0  0.0  0.5  0.5  0.5  0.5 
+> 
+> conds_gov <- c(
++   "f_Governance",
++   "f_Regulority_Qualityassess",
++   "f_ControlofCorruption",
++   "f_Contract_compliance",
++   "f_Contrcatural_Duties",
++   "f_Renegotiation",
++   "f_Political_Risk"
++ )
+> 
+> tt_gov <- truthTable(
++   dat,
++   outcome = "Y",
++   conditions = conds_gov,
++   incl.cut = 0.75,
++   n.cut = 1,
++   show.cases = TRUE
++ )
+
+Error: Conditions not found in the data.
+
+> 
+> sol_gov <- minimize(
++   tt_gov,
++   include = "?",
++   details = TRUE,
++   show.cases = TRUE
++ )
+Error: object 'tt_gov' not found
+> 
+> print(sol_gov)
+Error: object 'sol_gov' not found
+> 
+> names(dat)
+ [1] "Y"                                            
+ [2] "f_Renegotiation"                              
+ [3] "f_RevenueModel_type"                          
+ [4] "f_VoiceOfAccountability_StakeholderEngagement"
+ [5] "f_Macro_Enviromentimpact"                     
+ [6] "f_Regulority_Qualityassess"                   
+ [7] "f_ControlofCorruption"                        
+ [8] "f_BiddingTeam"                                
+ [9] "f_PPP_Procurement"                            
+[10] "f_Financial_capacity"                         
+[11] "f_Project_Financing"                          
+[12] "f_Financial_Viability"                        
+[13] "f_Partnership_collabration"                   
+[14] "f_Lifecycle_cost"                             
+[15] "f_Political_Risk"                             
+[16] "f_Sustainability"                             
+[17] "f_Risk_allocation"                            
+[18] "f_Cost_efficiency"                            
+[19] "f_Environmental_Impact"                       
+[20] "f_Contract_compliance"                        
+[21] "f_StakeholderSatisfaction"                    
+[22] "f_Outcome_specification"                      
+[23] "f_Service_Quality"                            
+[24] "f_Time"                                       
+[25] "f_Cost"                                       
+[26] "f_Quality"                                    
+[27] "f_Smart_Innovation"                           
+[28] "Y_strict"                                     
+> 
+> conds_gov <- c(
++   "f_Governance",                      # ❌ not in data → remove
++   "f_Regulority_Qualityassess",
++   "f_ControlofCorruption",
++   "f_Contract_compliance",
++   "f_Renegotiation",
++   "f_Political_Risk",
++   "f_Risk_allocation",
++   "f_PPP_Procurement"
++ )
+> 
+> conds_gov <- c(
++   "f_Regulority_Qualityassess",
++   "f_ControlofCorruption",
++   "f_Contract_compliance",
++   "f_Renegotiation",
++   "f_Political_Risk",
++   "f_Risk_allocation",
++   "f_PPP_Procurement"
++ )
+> 
+> library(QCA)
+> 
+> tt_gov <- truthTable(
++   dat,
++   outcome = "Y_strict",
++   conditions = conds_gov,
++   incl.cut = 0.80,
++   n.cut = 1,
++   show.cases = TRUE
++ )
+Warning message:
+In truthTable(dat, outcome = "Y_strict", conditions = conds_gov,  : 
+Fuzzy causal conditions should not have values of 0.5 in the data.
+
+
+> 
+> print(tt_gov)
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+      f_Regulority_Qualityassess f_ControlofCorruption f_Contract_compliance f_Renegotiation
+ 13               0                        0                     0                  1       
+125               1                        1                     1                  1       
+      f_Political_Risk f_Risk_allocation f_PPP_Procurement   OUT    n  incl  PRI   cases
+ 13          1                 0                 0            0     1  0.721 0.644 144  
+125          1                 0                 0            1     2  0.904 0.887 9,18 
+
+> 
+> sol_gov <- minimize(
++   tt_gov,
++   include = "?",
++   details = TRUE,
++   show.cases = TRUE
++ )
+> 
+> print(sol_gov)
+
+M1: f_Regulority_Qualityassess -> Y_strict 
+M2: f_ControlofCorruption -> Y_strict 
+M3: f_Contract_compliance -> Y_strict 
+
+                                                    -------------------------- 
+                               inclS   PRI   covS   covU   (M1)   (M2)   (M3)   cases 
+------------------------------------------------------------------------------------ 
+1  f_Regulority_Qualityassess  0.845  0.830  0.580  0.023    -                  9,18 
+2       f_ControlofCorruption  0.837  0.824  0.586  0.027           -           9,18 
+3       f_Contract_compliance  0.828  0.813  0.560  0.064                  -    9,18 
+------------------------------------------------------------------------------------ 
+                           M1  0.845  0.830  0.580 
+                           M2  0.837  0.824  0.586 
+                           M3  0.828  0.813  0.560 
+
+> 
+> pofind(dat, outcome = "Y_strict", conditions = conds_gov)
+
+                                  inclN   RoN   covN  
+----------------------------------------------------- 
+ 1   ~f_Regulority_Qualityassess  0.475  0.738  0.661 
+ 2    f_Regulority_Qualityassess  0.580  0.871  0.845 
+ 3        ~f_ControlofCorruption  0.463  0.741  0.655 
+ 4         f_ControlofCorruption  0.586  0.861  0.837 
+ 5        ~f_Contract_compliance  0.493  0.739  0.674 
+ 6         f_Contract_compliance  0.560  0.863  0.828 
+ 7              ~f_Renegotiation  0.500  0.838  0.773 
+ 8               f_Renegotiation  0.565  0.768  0.743 
+ 9             ~f_Political_Risk  0.485  0.812  0.736 
+10              f_Political_Risk  0.583  0.800  0.780 
+11            ~f_Risk_allocation  0.683  0.612  0.708 
+12             f_Risk_allocation  0.388  0.945  0.875 
+13            ~f_PPP_Procurement  0.623  0.667  0.705 
+14             f_PPP_Procurement  0.429  0.904  0.821 
+----------------------------------------------------- 
+
+> 
+> conds_gov <- c(
++   "f_Regulority_Qualityassess",
++   "f_ControlofCorruption",
++   "f_Contract_compliance",
++   "f_Renegotiation",
++   "f_Political_Risk",
++   "f_Risk_allocation",
++   "f_PPP_Procurement"
++ )
+> 
+> pof_gov <- pofind(
++   dat,
++   outcome = "Y_strict",
++   conditions = conds_gov
++ )
+> 
+> print(pof_gov)
+
+                                  inclN   RoN   covN  
+----------------------------------------------------- 
+ 1   ~f_Regulority_Qualityassess  0.475  0.738  0.661 
+ 2    f_Regulority_Qualityassess  0.580  0.871  0.845 
+ 3        ~f_ControlofCorruption  0.463  0.741  0.655 
+ 4         f_ControlofCorruption  0.586  0.861  0.837 
+ 5        ~f_Contract_compliance  0.493  0.739  0.674 
+ 6         f_Contract_compliance  0.560  0.863  0.828 
+ 7              ~f_Renegotiation  0.500  0.838  0.773 
+ 8               f_Renegotiation  0.565  0.768  0.743 
+ 9             ~f_Political_Risk  0.485  0.812  0.736 
+10              f_Political_Risk  0.583  0.800  0.780 
+11            ~f_Risk_allocation  0.683  0.612  0.708 
+12             f_Risk_allocation  0.388  0.945  0.875 
+13            ~f_PPP_Procurement  0.623  0.667  0.705 
+14             f_PPP_Procurement  0.429  0.904  0.821 
+----------------------------------------------------- 
+
+> 
+> f_Regulority_Qualityass

@@ -1,0 +1,567 @@
+
+R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[R.app GUI 1.82 (8556) aarch64-apple-darwin20]
+
+[History restored from /Users/zizfonjabbar/.Rapp.history]
+
+> install.packages("QCA")
+--- Please select a CRAN mirror for use in this session ---
+trying URL 'https://cran.stat.auckland.ac.nz/bin/macosx/big-sur-arm64/contrib/4.5/QCA_3.23.tgz'
+Content type 'application/x-gzip' length 1645103 bytes (1.6 MB)
+==================================================
+downloaded 1.6 MB
+
+
+The downloaded binary packages are in
+	/var/folders/fq/57rl47712sn1dsk9vtx_9f380000gn/T//RtmpyW6FXH/downloaded_packages
+> 
+> library(QCA)
+Loading required package: admisc
+
+To cite package QCA in publications, please use:
+  Dusa, Adrian (2019) QCA with R. A Comprehensive Resource.
+  Springer International Publishing.
+
+To run the graphical user interface, use: runGUI()
+
+
+> 
+> data <- read.csv("~/Desktop/PPP_QCA_final.csv")
+> 
+> 
+> nrow(data)
+[1] 438
+> names(data)
+ [1] "PROJECT_Name"  "Year"          "Eval_fz"       "PartCol_fz"   
+ [5] "RiskL_fz"      "PPP_Proc_fz"   "Biddteam_fz"   "Short_Conc_fz"
+ [9] "StatuID_fz"    "EVAL_HIGH_fs"  "PARTCOL_fs"    "RISKAL_fs"    
+[13] "PPPPROC_fs"    "BIDTEAM_fs"    "SHORT_CONC_fs" "ADV_STATUS_fs"
+[17] "filter_."     
+> 
+> qca_vars <- c(
++   "EVAL_HIGH_fs",
++   "PARTCOL_fs",
++   "RISKAL_fs",
++   "PPPPROC_fs",
++   "BIDTEAM_fs",
++   "SHORT_CONC_fs",
++   "ADV_STATUS_fs"
++ )
+> 
+> data_qca <- data[complete.cases(data[, qca_vars]), ]
+> 
+> nrow(data_qca)
+[1] 228
+> colSums(is.na(data_qca[, qca_vars]))
+ EVAL_HIGH_fs    PARTCOL_fs     RISKAL_fs    PPPPROC_fs    BIDTEAM_fs 
+            0             0             0             0             0 
+SHORT_CONC_fs ADV_STATUS_fs 
+            0             0 
+> 
+> summary(data_qca[, qca_vars])
+  EVAL_HIGH_fs    PARTCOL_fs       RISKAL_fs        PPPPROC_fs   
+ Min.   :0.00   Min.   :0.0000   Min.   :0.0000   Min.   :0.000  
+ 1st Qu.:0.75   1st Qu.:0.5000   1st Qu.:0.5000   1st Qu.:1.000  
+ Median :1.00   Median :1.0000   Median :0.7500   Median :1.000  
+ Mean   :0.75   Mean   :0.8377   Mean   :0.6732   Mean   :0.901  
+ 3rd Qu.:1.00   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.000  
+ Max.   :1.00   Max.   :1.0000   Max.   :1.0000   Max.   :1.000  
+   BIDTEAM_fs     SHORT_CONC_fs    ADV_STATUS_fs   
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.3300   1st Qu.:0.5000   1st Qu.:0.0000  
+ Median :0.3300   Median :0.5000   Median :0.6700  
+ Mean   :0.5141   Mean   :0.5154   Mean   :0.5657  
+ 3rd Qu.:0.6700   3rd Qu.:0.7500   3rd Qu.:1.0000  
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+> 
+> nca <- pof(
++   data_qca,
++   outcome = "EVAL_HIGH_fs",
++   conditions = c(
++     "PARTCOL_fs",
++     "RISKAL_fs",
++     "PPPPROC_fs",
++     "BIDTEAM_fs",
++     "SHORT_CONC_fs",
++     "ADV_STATUS_fs"
++   ),
++   relation = "necessity"
++ )
+
+Error: The data argument is missing, with no default.
+
+> 
+> nca
+Error: object 'nca' not found
+> 
+> library(QCA)
+> 
+> 
+> data <- read.csv("~/Desktop/PPP_QCA_final.csv")
+> 
+> 
+> nrow(data)
+[1] 438
+> 
+> qca_vars <- c(
++   "EVAL_HIGH_fs",
++   "PARTCOL_fs",
++   "RISKAL_fs",
++   "PPPPROC_fs",
++   "BIDTEAM_fs",
++   "SHORT_CONC_fs",
++   "ADV_STATUS_fs"
++ )
+> 
+> data_qca <- data[complete.cases(data[, qca_vars]), ]
+> 
+> 
+> nrow(data_qca)
+[1] 228
+> 
+> colSums(is.na(data_qca[, qca_vars]))
+ EVAL_HIGH_fs    PARTCOL_fs     RISKAL_fs    PPPPROC_fs    BIDTEAM_fs 
+            0             0             0             0             0 
+SHORT_CONC_fs ADV_STATUS_fs 
+            0             0 
+> 
+> library(QCA)
+> 
+> nca <- pof(
++   data_qca,
++   outcome = "EVAL_HIGH_fs",
++   conditions = c(
++     "PARTCOL_fs",
++     "RISKAL_fs",
++     "PPPPROC_fs",
++     "BIDTEAM_fs",
++     "SHORT_CONC_fs",
++     "ADV_STATUS_fs"
++   ),
++   relation = "necessity"
++ )
+
+Error: The data argument is missing, with no default.
+
+> 
+> nca
+Error: object 'nca' not found
+> 
+> Error: The data argument is missing, with no default.
+Error: unexpected symbol in "Error: The data"
+> object 'nca' not found
+Error: unexpected string constant in "object 'nca'"
+> 
+> pof(..., relation = "necessity")
+Error: '...' used in an incorrect context
+> 
+> library(QCA)
+> qca_vars <- c(
++   "EVAL_HIGH_fs",
++   "PARTCOL_fs",
++   "RISKAL_fs",
++   "PPPPROC_fs",
++   "BIDTEAM_fs",
++   "SHORT_CONC_fs",
++   "ADV_STATUS_fs"
++ )
+> 
+> data_qca <- data[complete.cases(data[, qca_vars]), ]
+> nrow(data_qca)
+[1] 228
+> 
+> nca <- pof(
++   data = data_qca,
++   outcome = "EVAL_HIGH_fs",
++   conditions = c(
++     "PARTCOL_fs",
++     "RISKAL_fs",
++     "PPPPROC_fs",
++     "BIDTEAM_fs",
++     "SHORT_CONC_fs",
++     "ADV_STATUS_fs"
++   ),
++   relation = "necessity"
++ )
+
+Error: The causal condition PROJECT_Name is not numeric or factor.
+
+> 
+> library(QCA)
+> 
+> qca_vars <- c("EVAL_HIGH_fs","PARTCOL_fs","RISKAL_fs","PPPPROC_fs",
++               "BIDTEAM_fs","SHORT_CONC_fs","ADV_STATUS_fs")
+> 
+> data_qca2 <- data_qca[, qca_vars]
+> str(data_qca2)
+'data.frame':	228 obs. of  7 variables:
+ $ EVAL_HIGH_fs : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ PARTCOL_fs   : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ RISKAL_fs    : num  0.5 1 1 1 0.5 1 1 0.5 0 0 ...
+ $ PPPPROC_fs   : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ BIDTEAM_fs   : num  0.33 0.33 0.33 0.67 0.67 0.67 1 0.33 0.33 0.67 ...
+ $ SHORT_CONC_fs: num  0.75 0.75 0.5 0.75 0.75 0.75 0.75 0.5 0.75 0.75 ...
+ $ ADV_STATUS_fs: num  0.25 1 0.4 0.4 0.4 0.4 1 1 0.25 0.4 ...
+> 
+> nca <- pof(
++   data = data_qca2,
++   outcome = "EVAL_HIGH_fs",
++   conditions = c("PARTCOL_fs","RISKAL_fs","PPPPROC_fs",
++                  "BIDTEAM_fs","SHORT_CONC_fs","ADV_STATUS_fs"),
++   relation = "necessity"
++ )
+> 
+> nca
+
+                    inclN   RoN   covN  
+--------------------------------------- 
+ 1     ~PARTCOL_fs  0.070  0.884  0.324 
+ 2      PARTCOL_fs  0.930  0.536  0.832 
+ 3      ~RISKAL_fs  0.254  0.832  0.584 
+ 4       RISKAL_fs  0.746  0.741  0.831 
+ 5     ~PPPPROC_fs  0.062  0.945  0.469 
+ 6      PPPPROC_fs  0.938  0.334  0.781 
+ 7     ~BIDTEAM_fs  0.436  0.764  0.673 
+ 8      BIDTEAM_fs  0.564  0.842  0.822 
+ 9  ~SHORT_CONC_fs  0.459  0.786  0.710 
+10   SHORT_CONC_fs  0.541  0.815  0.787 
+11  ~ADV_STATUS_fs  0.272  0.710  0.469 
+12   ADV_STATUS_fs  0.728  0.957  0.966 
+--------------------------------------- 
+
+> 
+> colSums(is.na(data_qca[, qca_vars]))
+ EVAL_HIGH_fs    PARTCOL_fs     RISKAL_fs    PPPPROC_fs    BIDTEAM_fs 
+            0             0             0             0             0 
+SHORT_CONC_fs ADV_STATUS_fs 
+            0             0 
+> 
+> Error: could not find function "necessity"
+Error: unexpected symbol in "Error: could not"
+> 
+> library(QCA)
+> 
+> nca <- pof(
++   data = data_qca,
++   outcome = "EVAL_HIGH_fs",
++   conditions = c(
++     "PARTCOL_fs",
++     "RISKAL_fs",
++     "PPPPROC_fs",
++     "BIDTEAM_fs",
++     "SHORT_CONC_fs",
++     "ADV_STATUS_fs"
++   ),
++   relation = "necessity"
++ )
+
+Error: The causal condition PROJECT_Name is not numeric or factor.
+
+> 
+> nca
+
+                    inclN   RoN   covN  
+--------------------------------------- 
+ 1     ~PARTCOL_fs  0.070  0.884  0.324 
+ 2      PARTCOL_fs  0.930  0.536  0.832 
+ 3      ~RISKAL_fs  0.254  0.832  0.584 
+ 4       RISKAL_fs  0.746  0.741  0.831 
+ 5     ~PPPPROC_fs  0.062  0.945  0.469 
+ 6      PPPPROC_fs  0.938  0.334  0.781 
+ 7     ~BIDTEAM_fs  0.436  0.764  0.673 
+ 8      BIDTEAM_fs  0.564  0.842  0.822 
+ 9  ~SHORT_CONC_fs  0.459  0.786  0.710 
+10   SHORT_CONC_fs  0.541  0.815  0.787 
+11  ~ADV_STATUS_fs  0.272  0.710  0.469 
+12   ADV_STATUS_fs  0.728  0.957  0.966 
+--------------------------------------- 
+
+> 
+> tt <- truthTable(
++   data = data_qca,
++   outcome = "EVAL_HIGH_fs",
++   conditions = c(
++     "PARTCOL_fs",
++     "RISKAL_fs",
++     "PPPPROC_fs",
++     "BIDTEAM_fs",
++     "SHORT_CONC_fs",
++     "ADV_STATUS_fs"
++   ),
++   incl.cut = 0.80,
++   n.cut = 5,
++   show.cases = TRUE
++ )
+Warning message:
+In truthTable(data = data_qca, outcome = "EVAL_HIGH_fs", conditions = c("PARTCOL_fs",  :
+  
+Fuzzy causal conditions should not have values of 0.5 in the data.
+
+
+> 
+> tt
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+     PARTCOL_fs RISKAL_fs PPPPROC_fs BIDTEAM_fs SHORT_CONC_fs ADV_STATUS_fs
+58       1          1         1          0            0             1      
+60       1          1         1          0            1             1      
+62       1          1         1          1            0             1      
+63       1          1         1          1            1             0      
+64       1          1         1          1            1             1      
+       OUT    n   incl  PRI   cases                                  
+58      1     10  0.939 0.939 100,105,106,107,110,111,116,117,125,157
+60      1     10  0.953 0.953 2,20,22,24,102,112,124,126,127,165     
+62      1     8   0.967 0.967 82,91,119,178,182,183,186,187          
+63      0     5   0.675 0.675 4,6,36,48,232                          
+64      1     6   0.973 0.973 7,26,37,43,75,76                       
+
+> 
+> sol_p <- minimize(
++   tt,
++   details = TRUE,
++   include = "?"
++ )
+> sol_p
+
+M1: ADV_STATUS_fs -> EVAL_HIGH_fs
+
+                  inclS   PRI   covS   covU  
+-------------------------------------------- 
+1  ADV_STATUS_fs  0.966  0.966  0.728    -   
+-------------------------------------------- 
+              M1  0.966  0.966  0.728 
+
+                  cases 
+----------------------- 
+1  ADV_STATUS_fs  100,105,106,107,110,111,116,117,125,157; 2,20,22,24,102,112,124,126,127,165;
+                  82,91,119,178,182,183,186,187; 7,26,37,43,75,76
+----------------------- 
+
+> 
+> sol_i <- minimize(
++   tt,
++   details = TRUE,
++   include = "?",
++   dir.exp = c(1,1,1,1,1,1)
++ )
+> sol_i
+
+From C1P1: 
+
+M1:    PARTCOL_fs*RISKAL_fs*PPPPROC_fs*ADV_STATUS_fs -> EVAL_HIGH_fs 
+
+                                                  inclS   PRI   covS   covU  
+---------------------------------------------------------------------------- 
+1  PARTCOL_fs*RISKAL_fs*PPPPROC_fs*ADV_STATUS_fs  0.970  0.970  0.560    -   
+---------------------------------------------------------------------------- 
+                                              M1  0.970  0.970  0.560 
+
+                                                  cases 
+------------------------------------------------------- 
+1  PARTCOL_fs*RISKAL_fs*PPPPROC_fs*ADV_STATUS_fs  100,105,106,107,110,111,116,117,125,157;
+                                                  2,20,22,24,102,112,124,126,127,165;
+                                                  82,91,119,178,182,183,186,187;
+                                                  7,26,37,43,75,76
+------------------------------------------------------- 
+
+> 
+> 
+> sol_p <- minimize(
++   tt,
++   details = TRUE,
++   include = "?"
++ )
+> sol_p
+
+M1: ADV_STATUS_fs -> EVAL_HIGH_fs
+
+                  inclS   PRI   covS   covU  
+-------------------------------------------- 
+1  ADV_STATUS_fs  0.966  0.966  0.728    -   
+-------------------------------------------- 
+              M1  0.966  0.966  0.728 
+
+                  cases 
+----------------------- 
+1  ADV_STATUS_fs  100,105,106,107,110,111,116,117,125,157; 2,20,22,24,102,112,124,126,127,165;
+                  82,91,119,178,182,183,186,187; 7,26,37,43,75,76
+----------------------- 
+
+> 
+> qca_only <- data_qca[, c("EVAL_HIGH_fs","PARTCOL_fs","RISKAL_fs","PPPPROC_fs",
++                         "BIDTEAM_fs","SHORT_CONC_fs","ADV_STATUS_fs")]
+> 
+> 
+> 
+> nca <- pof(
++   data = qca_only,
++   outcome = "EVAL_HIGH_fs",
++   conditions = c("PARTCOL_fs","RISKAL_fs","PPPPROC_fs","BIDTEAM_fs","SHORT_CONC_fs","ADV_STATUS_fs"),
++   relation = "necessity"
++ )
+> nca
+
+                    inclN   RoN   covN  
+--------------------------------------- 
+ 1     ~PARTCOL_fs  0.070  0.884  0.324 
+ 2      PARTCOL_fs  0.930  0.536  0.832 
+ 3      ~RISKAL_fs  0.254  0.832  0.584 
+ 4       RISKAL_fs  0.746  0.741  0.831 
+ 5     ~PPPPROC_fs  0.062  0.945  0.469 
+ 6      PPPPROC_fs  0.938  0.334  0.781 
+ 7     ~BIDTEAM_fs  0.436  0.764  0.673 
+ 8      BIDTEAM_fs  0.564  0.842  0.822 
+ 9  ~SHORT_CONC_fs  0.459  0.786  0.710 
+10   SHORT_CONC_fs  0.541  0.815  0.787 
+11  ~ADV_STATUS_fs  0.272  0.710  0.469 
+12   ADV_STATUS_fs  0.728  0.957  0.966 
+--------------------------------------- 
+
+> 
+> tt <- truthTable(
++   data = qca_only,
++   outcome = "EVAL_HIGH_fs",
++   conditions = c("PARTCOL_fs","RISKAL_fs","PPPPROC_fs","BIDTEAM_fs","SHORT_CONC_fs","ADV_STATUS_fs"),
++   incl.cut = 0.80,
++   n.cut = 5,
++   show.cases = TRUE
++ )
+Warning message:
+In truthTable(data = qca_only, outcome = "EVAL_HIGH_fs", conditions = c("PARTCOL_fs",  :
+  
+Fuzzy causal conditions should not have values of 0.5 in the data.
+
+
+> tt
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+     PARTCOL_fs RISKAL_fs PPPPROC_fs BIDTEAM_fs SHORT_CONC_fs ADV_STATUS_fs   OUT 
+58       1          1         1          0            0             1          1  
+60       1          1         1          0            1             1          1  
+62       1          1         1          1            0             1          1  
+63       1          1         1          1            1             0          0  
+64       1          1         1          1            1             1          1  
+       n   incl  PRI   cases                                  
+58     10  0.939 0.939 100,105,106,107,110,111,116,117,125,157
+60     10  0.953 0.953 2,20,22,24,102,112,124,126,127,165     
+62     8   0.967 0.967 82,91,119,178,182,183,186,187          
+63     5   0.675 0.675 4,6,36,48,232                          
+64     6   0.973 0.973 7,26,37,43,75,76                       
+
+> 
+> sol_i <- minimize(tt, details = TRUE, include = "?", dir.exp = c(1,1,1,1,1,1))
+> sol_p <- minimize(tt, details = TRUE, include = "?")
+> 
+> sol_i
+
+From C1P1: 
+
+M1:    PARTCOL_fs*RISKAL_fs*PPPPROC_fs*ADV_STATUS_fs -> EVAL_HIGH_fs 
+
+                                                  inclS   PRI   covS   covU  
+---------------------------------------------------------------------------- 
+1  PARTCOL_fs*RISKAL_fs*PPPPROC_fs*ADV_STATUS_fs  0.970  0.970  0.560    -   
+---------------------------------------------------------------------------- 
+                                              M1  0.970  0.970  0.560 
+
+                                                  cases 
+------------------------------------------------------- 
+1  PARTCOL_fs*RISKAL_fs*PPPPROC_fs*ADV_STATUS_fs  100,105,106,107,110,111,116,117,125,157;
+                                                  2,20,22,24,102,112,124,126,127,165; 82,91,119,178,182,183,186,187;
+                                                  7,26,37,43,75,76
+------------------------------------------------------- 
+
+> sol_p
+
+M1: ADV_STATUS_fs -> EVAL_HIGH_fs
+
+                  inclS   PRI   covS   covU  
+-------------------------------------------- 
+1  ADV_STATUS_fs  0.966  0.966  0.728    -   
+-------------------------------------------- 
+              M1  0.966  0.966  0.728 
+
+                  cases 
+----------------------- 
+1  ADV_STATUS_fs  100,105,106,107,110,111,116,117,125,157; 2,20,22,24,102,112,124,126,127,165;
+                  82,91,119,178,182,183,186,187; 7,26,37,43,75,76
+----------------------- 
+
+> 
+> tt85 <- truthTable(qca_only, outcome="EVAL_HIGH_fs",
++                    conditions=c("PARTCOL_fs","RISKAL_fs","PPPPROC_fs","BIDTEAM_fs","SHORT_CONC_fs","ADV_STATUS_fs"),
++                    incl.cut=0.85, n.cut=5)
+Warning message:
+In truthTable(qca_only, outcome = "EVAL_HIGH_fs", conditions = c("PARTCOL_fs",  :
+  
+Fuzzy causal conditions should not have values of 0.5 in the data.
+
+
+> minimize(tt85, details=TRUE, include="?", dir.exp=c(1,1,1,1,1,1))
+
+From C1P1: 
+
+M1:    PARTCOL_fs*RISKAL_fs*PPPPROC_fs*ADV_STATUS_fs -> EVAL_HIGH_fs 
+
+                                                  inclS   PRI   covS   covU  
+---------------------------------------------------------------------------- 
+1  PARTCOL_fs*RISKAL_fs*PPPPROC_fs*ADV_STATUS_fs  0.970  0.970  0.560    -   
+---------------------------------------------------------------------------- 
+                                              M1  0.970  0.970  0.560 
+
+> 
+> tt_n7 <- truthTable(qca_only, outcome="EVAL_HIGH_fs",
++                     conditions=c("PARTCOL_fs","RISKAL_fs","PPPPROC_fs","BIDTEAM_fs","SHORT_CONC_fs","ADV_STATUS_fs"),
++                     incl.cut=0.80, n.cut=7)
+Warning message:
+In truthTable(qca_only, outcome = "EVAL_HIGH_fs", conditions = c("PARTCOL_fs",  :
+  
+Fuzzy causal conditions should not have values of 0.5 in the data.
+
+
+> minimize(tt_n7, details=TRUE, include="?", dir.exp=c(1,1,1,1,1,1))
+
+Error: All truth table configurations are used, all conditions are minimized.
+       Please check the truth table.
+
+> tt_n7 <- truthTable(qca_only, outcome="EVAL_HIGH_fs",
++                     conditions=c("PARTCOL_fs","RISKAL_fs","PPPPROC_fs","BIDTEAM_fs","SHORT_CONC_fs","ADV_STATUS_fs"),
++                     incl.cut=0.80, n.cut=7)
+Warning message:
+In truthTable(qca_only, outcome = "EVAL_HIGH_fs", conditions = c("PARTCOL_fs",  :
+  
+Fuzzy causal conditions should not have values of 0.5 in the data.
+
+
+> minimize(tt_n7, details=TRUE, include="?", dir.exp=c(1,1,1,1,1,1))
+
+Error: All truth table configurations are used, all conditions are minimized.
+       Please check the truth table.
+
+> 
+> 
